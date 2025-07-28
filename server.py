@@ -94,22 +94,11 @@ def run_python_code(code: str) -> str:
     result = execute_python_code_persistent(code, timeout=10)
     
     output = []
-    output.append(f"=== Execution Result ===")
-    output.append(f"Execution time: {result['elapsed']:.3f}s")
-    output.append(f"Return code: {result['returncode']}")
     
-    if result['success']:
-        output.append("Status: ✓ Success")
-        if result['stdout']:
-            output.append(f"\nStandard Output:\n{result['stdout']}")
-        if result['stderr']:
-            output.append(f"\nStandard Error:\n{result['stderr']}")
-    else:
-        output.append("Status: ✗ Failed")
-        if result['stderr']:
-            output.append(f"\nError Message:\n{result['stderr']}")
-        if result['stdout']:
-            output.append(f"\nOutput Message:\n{result['stdout']}")
+    if result['stdout']:
+        output.append(f"{result['stdout']}")
+    if result['stderr']:
+        output.append(f"{result['stderr']}")
     
     return "\n".join(output)
 
